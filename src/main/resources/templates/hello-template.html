@@ -6,6 +6,11 @@
         <title>Document</title>
     </head>
     <body>
-        <p th:text="'hello ' + ${data}">안녕하세요! 손님</p>
+        <!-- $표시는 model에서 값을 꺼내는 것. -->
+        <!--
+            viewResolver가 templates에서 찾아서 템플릿 엔진에게 처리해달라고 넘김.
+            그러면 템플릿 엔진이 렌더링 해서 '변환을 한' HTML을 웹 브라우저에 넘겨준다
+        -->
+        <p th:text="'hello ' + ${name}"></p>
     </body>
 </html>
