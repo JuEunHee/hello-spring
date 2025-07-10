@@ -9,6 +9,7 @@ import java.util.Optional;
 
 // 서비스는 비즈니스에 가깝게 네이밍 설계를 함.
 public class MemberService {
+    // Command + Shift + T : 여기서 이 단축키로 바로 Test 만들기 가능
 
     private final MemberRepository memberRepository = new MemoryMemberRepository();
 
