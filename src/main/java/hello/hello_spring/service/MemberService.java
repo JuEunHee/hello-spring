@@ -11,7 +11,13 @@ import java.util.Optional;
 public class MemberService {
     // Command + Shift + T : 여기서 이 단축키로 바로 Test 만들기 가능
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // new MemoryMemberRepository();를 지우고 Ctrl+Enter 이용해서 constructor 만들어줌
+    // 그래서 직접 내가 넣어주는게 아니라 외부에서 넣어주도록 바꾸는것.
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원가입

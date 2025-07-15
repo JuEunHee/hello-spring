@@ -7,10 +7,15 @@ import java.util.*;
 // MemberRepository에 Option + 엔터하면 implement 메서드 할 수 있음
 public class MemoryMemberRepository implements  MemberRepository{
 
-    // 저장에는 DB 미정이므로 우선 Map을 씀. key는 아이디니까 Long, 값은 Member
+    // 1. 저장에는 DB 미정이므로 우선 Map을 씀. key는 아이디니까 Long, 값은 Member
 
-    // 실무에서는 동시성 문제가 있을 수 있어서 이렇게 공유되는 변수일때는
-    // Concurrent HashMap을 사용하는데 여기는 예제니까 단순히 HashMap 사용
+    // 2. 실무에서는 동시성 문제가 있을 수 있어서 이렇게 공유되는 변수일때는
+    //    Concurrent HashMap을 사용하는데 여기는 예제니까 단순히 HashMap 사용
+
+    // 3. Test에서 new MemoryMemberRepository() 생성 시..
+    //    : MemoryMemberRepository에서 현재 static으로 되어있어서
+    //    static은 인스턴스랑 상관없이 클래스 레벨에 붙는거라 지금은 상관없는데 나중에
+    //    그래도 new로 다른 객체 리포지토리가 생성되게 되면 혹시라도 뭔가 다른 인스턴스라서 다른 내용물이 생길 수 있다.
     private static Map<Long, Member> store = new HashMap<Long, Member>();
     // 이것도 동시성 문제 고려해서 atomic long 등등 해야하는데 우선 단순하게 LONG으로
     private static long sequence = 0L;
