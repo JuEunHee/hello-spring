@@ -3,11 +3,15 @@ package hello.hello_spring.service;
 import hello.hello_spring.domain.Member;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 // 서비스는 비즈니스에 가깝게 네이밍 설계를 함.
+// 서비스 어노테이션 등록해주면 오 서비스네 하고 스프링 컨테이너에 멤버 서비스 등록해줌
+@Service
 public class MemberService {
     // Command + Shift + T : 여기서 이 단축키로 바로 Test 만들기 가능
 
@@ -15,6 +19,11 @@ public class MemberService {
     // 그래서 직접 내가 넣어주는게 아니라 외부에서 넣어주도록 바꾸는것.
     private final MemberRepository memberRepository;
 
+//  memberService는 memberRepository가 필요함.
+//  @Autowired가 되어있으면 이 멤버 서비스를 스프링이 생성할때
+//  스프링이 뜰때 오 멤버 서비스네 하고 스프링 컨텐츠에 등록을 하면서 생성자 호출함.
+//  이런식으로 등록해주는걸 "컴포넌트 스캔과 자동 의존관계 설정 방식"이라고 함.
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

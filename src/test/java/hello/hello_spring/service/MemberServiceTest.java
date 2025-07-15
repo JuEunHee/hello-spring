@@ -22,6 +22,7 @@ class MemberServiceTest {
 //      각 테스트 실행마다 memberRepository를 생성해서 위 변수에 저장하고 new MemberService 시 생성된 repository를 넣어줌.
 //      memberService 입장에서 내가 직접 new하지 않음. 외부에서 memoryMemberRepository를 외부에서 넣어줌.
 //      이것을 DI, Depencency Injection(의존성 주입)이라고 함.
+//      DI: 서비스 객체가 자신이 의존하는 리포지토리 객체의 구현체를 직접 생성하지 않고, 외부(설정 등)에서 전달받아 사용하는 설계 방식
         memberRepository = new MemoryMemberRepository();
         memberService = new MemberService(memberRepository);
     }
