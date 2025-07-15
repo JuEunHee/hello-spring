@@ -7,7 +7,6 @@ import java.util.*;
 
 // MemberRepository에 Option + 엔터하면 implement 메서드 할 수 있음
 // 요 MemberRepository 구현체에서 @Repository 어노테이션 추가해서 등록
-@Repository
 public class MemoryMemberRepository implements MemberRepository{
 
     // 1. 저장에는 DB 미정이므로 우선 Map을 씀. key는 아이디니까 Long, 값은 Member
