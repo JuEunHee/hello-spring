@@ -49,6 +49,9 @@ public class MemberController {
     @GetMapping("/members")
     public String list(Model model){
         List<Member> members = memberService.findMembers();
+
+        // 컨트롤러는 Model 객체에 `addAttribute` 메소드를 사용하여 뷰 템플릿에 전달할 데이터를 담습니다.
+        // 뷰 리졸버가 템플릿을 찾고 Thymeleaf가 이 데이터를 렌더링합니다.
         model.addAttribute("members", members);
 
         return "members/memberList";
