@@ -1,40 +1,30 @@
 package hello.hello_spring.service;
 
 import hello.hello_spring.domain.Member;
-import hello.hello_spring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import hello.hello_spring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberServiceTest {
+// `@SpringBootTest` : 스프링 컨테이너와 테스트를 함께 실행한다.
+// `@Transactional` : 테스트 케이스에 이 애노테이션이 있으면, 테스트 시작 전에 트랜잭션을 시작하고, 테스트
+// 완료 후에 항상 롤백한다. 이렇게 하면 DB에 데이터가 남지 않으므로 다음 테스트에 영향을 주지 않는다
+@SpringBootTest
+@Transactional
+class MemberServiceIntegrationTest {
 
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
-
-    @BeforeEach
-    public void beforeEach() {
-//      각 테스트 실행마다 memberRepository를 생성해서 위 변수에 저장하고 new MemberService 시 생성된 repository를 넣어줌.
-//      memberService 입장에서 내가 직접 new하지 않음. 외부에서 memoryMemberRepository를 외부에서 넣어줌.
-//      이것을 DI, Depencency Injection(의존성 주입)이라고 함.
-//      DI: 서비스 객체가 자신이 의존하는 리포지토리 객체의 구현체를 직접 생성하지 않고, 외부(설정 등)에서 전달받아 사용하는 설계 방식
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-    @AfterEach
-    public void afterEach() {
-        memberRepository.clearStore();
-    }
+    @Autowired MemberService memberService;
+    @Autowired MemberRepository memberRepository;
 
     // 과감하게 한글로 적기 가능, 프로덕션 코드에 포함되지 않음
     @Test
-    void 회원가입() {
+    public void 회원가입() throws Exception {
         // given
         Member member = new Member();
         member.setName("hello");
@@ -43,10 +33,8 @@ class MemberServiceTest {
         Long saveId = memberService.join(member);
 
         // then
-
-        Member findMember = memberService.findOne(saveId).get();
-
-        assertThat(member.getName()).isEqualTo(findMember.getName());
+        Member findMember = memberRepository.findById(saveId).get();
+        assertEquals(member.getName(), findMember.getName());
     }
 
     // 중복 회원이 터트려지는 것도 봐야함.
