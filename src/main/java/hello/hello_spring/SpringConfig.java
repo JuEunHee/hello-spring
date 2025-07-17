@@ -1,9 +1,12 @@
 package hello.hello_spring;
 
 import hello.hello_spring.repository.JdbcTemplateMemberRepository;
+import hello.hello_spring.repository.JpaMemberRepository;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
 import hello.hello_spring.service.MemberService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +21,19 @@ import javax.sql.DataSource;
 // 과거에는 XML로 설정했는데 요즘은 잘 사용하지 않음.
 @Configuration
 public class SpringConfig {
-    private final DataSource dataSource;
+//    private final DataSource dataSource;
+//
+//    @Autowired
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+
+//  @PersistenceContext (스프링 자동 DI 주입되므로 생략)
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
 //  @Bean => 내가 스프링 빈을 직접 등록할거야
@@ -35,6 +46,7 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository(){
 //      return new MemoryMemberRepository();
-        return new JdbcTemplateMemberRepository(dataSource);
+//      return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 }

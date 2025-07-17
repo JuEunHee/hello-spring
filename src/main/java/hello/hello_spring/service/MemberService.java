@@ -5,12 +5,17 @@ import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 // 서비스는 비즈니스에 가깝게 네이밍 설계를 함.
 // 서비스 어노테이션 등록해주면 오 서비스네 하고 스프링 컨테이너에 멤버 서비스 등록해줌
+
+//  JPA를 쓰려면 항상 주의해야할 게 Transactional을 설정해줘야함.
+//  모든 데이터 변경이 트랜잭션 안에서 실행되어야한다는것.
+@Transactional
 public class MemberService {
     // Command + Shift + T : 여기서 이 단축키로 바로 Test 만들기 가능
 

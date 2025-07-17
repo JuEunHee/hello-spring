@@ -5,6 +5,7 @@ import hello.hello_spring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -24,10 +25,11 @@ class MemberServiceIntegrationTest {
 
     // 과감하게 한글로 적기 가능, 프로덕션 코드에 포함되지 않음
     @Test
+//  @Commit : DB에 반영됨
     public void 회원가입() throws Exception {
         // given
         Member member = new Member();
-        member.setName("hello");
+        member.setName("gildong");
 
         // when
         Long saveId = memberService.join(member);
