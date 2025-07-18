@@ -1,17 +1,10 @@
 package hello.hello_spring;
 
-import hello.hello_spring.repository.JdbcTemplateMemberRepository;
-import hello.hello_spring.repository.JpaMemberRepository;
+import hello.hello_spring.aop.TimeTraceAop;
 import hello.hello_spring.repository.MemberRepository;
-import hello.hello_spring.repository.MemoryMemberRepository;
 import hello.hello_spring.service.MemberService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
 
 // 첫번째 방법은 컴포넌트 스캔과 Autowired 방법이었다면,
 // 아래 두번째 방법은 설정 파일 만들어서 명시적으로 알려주고 한번에 관리 가능.
@@ -36,6 +29,12 @@ public class SpringConfig {
 //      그러면 생성자의 Autowired(하나만 있으면 생략됨)를 이용해 자동으로 찾아서 주입해줌.
         return new MemberService(memberRepository);
     }
+
+//  이건 SpringConfig에 쓰는게 좋음. 이런 AOP가 등록되어 있구나 파악하기 위해
+//    @Bean
+//    public TimeTraceAop timeTraceAop() {
+//        return new TimeTraceAop();
+//    }
 
 //    @Bean
 //    public MemberRepository memberRepository(){
