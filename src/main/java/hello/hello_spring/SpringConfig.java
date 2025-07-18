@@ -1,6 +1,5 @@
 package hello.hello_spring;
 
-import hello.hello_spring.aop.TimeTraceAop;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.service.MemberService;
 import org.springframework.context.annotation.Bean;
@@ -29,12 +28,6 @@ public class SpringConfig {
 //      그러면 생성자의 Autowired(하나만 있으면 생략됨)를 이용해 자동으로 찾아서 주입해줌.
         return new MemberService(memberRepository);
     }
-
-//  이건 SpringConfig에 쓰는게 좋음. 이런 AOP가 등록되어 있구나 파악하기 위해
-//    @Bean
-//    public TimeTraceAop timeTraceAop() {
-//        return new TimeTraceAop();
-//    }
 
 //    @Bean
 //    public MemberRepository memberRepository(){
