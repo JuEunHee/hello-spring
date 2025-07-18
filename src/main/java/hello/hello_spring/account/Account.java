@@ -1,6 +1,7 @@
 package hello.hello_spring.account;
 
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 public class Account {
@@ -47,7 +48,7 @@ public class Account {
         this.id = id;
     }
 
-    public void encodePassword() {
-        this.password = "{noop}" + this.getPassword();
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
     }
 }
